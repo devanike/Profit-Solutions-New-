@@ -78,3 +78,30 @@ window.addEventListener("load", () => {
         accordionTrigger.addEventListener("click", () => toggleAccordion(index));
     });
 });
+
+// documentation tabs
+document.addEventListener("click", tabClick);
+
+// function that filters the unwanted click events on the document
+function tabClick(event) {
+    let elem = event.target,
+        elemHREF = elem.getAttribute("href"),
+        tabs = document.querySelectorAll(".tabs li a"),
+        tabContents = document.querySelectorAll(".tab-contents li");
+
+    if (elemHREF != null && elemHREF.indexOf("tab-") != -1) {
+        event.preventDefault();
+
+        if (elem.className.indexOf("active") == -1) {
+        // Remove the active class from the tabs and the visible class from the tab contents
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+            tabContents[i].classList.remove("visible");
+        }
+
+        // Add the active class to the clicked element and the visible class to the corresponding tab
+        elem.classList.add("active");
+        document.getElementById(elemHREF).classList.add("visible");
+        }
+    }
+}
